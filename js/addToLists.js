@@ -12,7 +12,7 @@ class AddToList{
                 favourite: []            
             };
         } else {            
-            this.addedLists = locaAddedList;
+            this.addedLists = JSON.parse(locaAddedList);
         }
     }
 
@@ -25,6 +25,7 @@ class AddToList{
        if(document.getElementById('list-group')) {
         this.showLists();
        }
+       this.initialGetStorageValue();
        
     }
 
@@ -80,6 +81,7 @@ class AddToList{
                 if(e.target.className == "btn btn-primary add-to-list") {
                     const addedLists = movie.movieLists.filter((movie) => {
                         e.target.setAttribute('disabled', true);
+                        e.target.innerHTML = "Added to List";
                         return movie.id == e.target.getAttribute('data-movieid');
                     }) 
                     that.addedLists.favourite = [...that.addedLists.favourite , ...addedLists];

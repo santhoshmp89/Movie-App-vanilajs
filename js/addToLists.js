@@ -1,9 +1,19 @@
 class AddToList{
     constructor(){
         this.addedLists = {
-            favourite: []
-            
-        };
+            favourite: []            
+        };        
+    }
+
+    initialGetStorageValue() {
+        const locaAddedList = localStorage.getItem('addToLists');
+        if(localStorage === null) {
+            this.addedLists = {
+                favourite: []            
+            };
+        } else {            
+            this.addedLists = locaAddedList;
+        }
     }
 
     storeInLocalStorage(value) {
@@ -65,9 +75,11 @@ class AddToList{
         if(document.getElementById('movie-lists')) {
             const containerEle = document.getElementById('movie-lists');
             const that = this;
+            console.log()
             containerEle.addEventListener('click', function(e) {
                 if(e.target.className == "btn btn-primary add-to-list") {
                     const addedLists = movie.movieLists.filter((movie) => {
+                        e.target.setAttribute('disabled', true);
                         return movie.id == e.target.getAttribute('data-movieid');
                     }) 
                     that.addedLists.favourite = [...that.addedLists.favourite , ...addedLists];
